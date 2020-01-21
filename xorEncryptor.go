@@ -30,6 +30,8 @@ type xorReader struct {
 func (x *xorReader) Read(b []byte) (int, error) {
 	n, e := x.r.Read(b)
 	//TODO(decrypt) b
+	xor(b, x.key)
+
 	return n, e
 }
 
@@ -40,6 +42,8 @@ type xorWriter struct {
 
 func (x *xorWriter) Write(b []byte) (int, error) {
 	// TODO(encrypt) b
+	xor(b, x.key)
+
 	return x.w.Write(b)
 }
 
